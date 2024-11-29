@@ -16,9 +16,7 @@ function draw() {
     resultText = "Números sorteados: " + randomNumbers;
     document.getElementById("result").textContent = resultText;
 
-    document.querySelector("#btn-reiniciar").disabled = false;
-    document.getElementById("btn-reiniciar").style.background = "#1875E8";
-    document.getElementById("btn-reiniciar").style.cursor = "pointer";
+    changeStatusButton();
 }
 
 function getRandomNumber(numMin, numMax, listRandomNumber) {
@@ -36,7 +34,10 @@ function restart() {
     randomNumbers = [];
     resultText = "Números sorteados: nenhum até agora";
     document.getElementById("result").textContent = resultText;
-    document.querySelector("#btn-reiniciar").disabled = true;
-    document.getElementById("btn-reiniciar").style.background = "#6f6f70";
-    document.getElementById("btn-reiniciar").style.cursor = "not-allowed";
+    changeStatusButton();
+}
+
+function changeStatusButton() {
+    let button = document.getElementById("btn-reiniciar");
+    button.className = (button.classList.contains("container__botao-desabilitado")) ? "container__botao" : "container__botao-desabilitado";
 }
