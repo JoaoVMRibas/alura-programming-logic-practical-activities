@@ -6,10 +6,12 @@ function draw() {
     let initialNum = parseInt(document.getElementById("de").value);
     let finalNum = parseInt(document.getElementById("ate").value);
 
+    if (qtNum >= finalNum) {
+        alert(`Quantidade de números sorteados (${qtNum}) deve ser menor que o intervalo entre o valor inicial (${initialNum}) até o final (${finalNum}).`);
+        return;
+    }
+
     for(let i = 0; i< qtNum; i++){
-        if(randomNumbers.length == finalNum){
-            break;
-        }
         randomNumbers[i] = getRandomNumber(initialNum,finalNum,randomNumbers);
     }
 
