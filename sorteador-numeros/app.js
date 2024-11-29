@@ -7,7 +7,10 @@ function draw() {
     let finalNum = parseInt(document.getElementById("ate").value);
 
     for(let i = 0; i< qtNum; i++){
-        randomNumbers[i] = getRandomNumber(initialNum,finalNum);
+        if(randomNumbers.length == finalNum){
+            break;
+        }
+        randomNumbers[i] = getRandomNumber(initialNum,finalNum,randomNumbers);
     }
 
     resultText = "Números sorteados: " + randomNumbers;
@@ -18,8 +21,12 @@ function draw() {
     document.getElementById("btn-reiniciar").style.cursor = "pointer";
 }
 
-function getRandomNumber(numMin, numMax) {
-    return  Math.floor(Math.random() * (numMax - numMin + 1)) + numMin;   
+function getRandomNumber(numMin, numMax, listRandomNumber) {
+    let randomNumber = Math.floor(Math.random() * (numMax - numMin + 1)) + numMin;
+    if(listRandomNumber.includes(randomNumber)){
+        randomNumber = getRandomNumber(numMin, numMax, listRandomNumber);
+    }
+    return randomNumber;
 }
 
 function restart() {
