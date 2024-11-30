@@ -1,32 +1,9 @@
-function alterarStatus(gameNumber) {
-    let game;
-    let button;
-    let img;
-    switch (gameNumber) {
-        case 1:
-            game = document.getElementById(`game-${gameNumber}`);
-            img = game.querySelector(".dashboard__item__img");
-            button = game.querySelector(".dashboard__item__button");
-            toggleImage(img);
-            toggleButton(button);            
-            break;
-        case 2:
-            game = document.getElementById(`game-${gameNumber}`);
-            img = game.querySelector(".dashboard__item__img");
-            button = game.querySelector(".dashboard__item__button");
-            toggleImage(img);
-            toggleButton(button);            
-            break;
-        case 3:
-            game = document.getElementById(`game-${gameNumber}`);
-            img = game.querySelector(".dashboard__item__img");
-            button = game.querySelector(".dashboard__item__button");
-            toggleImage(img);
-            toggleButton(button);            
-            break;
-        default:
-            break;
-    }
+function alterarStatus(gameID) {
+    let game = document.getElementById(`game-${gameID}`); 
+    let img = game.querySelector(".dashboard__item__img"); 
+    let button = game.querySelector(".dashboard__item__button"); 
+    toggleImage(img);
+    toggleButton(button);
 }
 
 function toggleButton(button) {
