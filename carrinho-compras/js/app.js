@@ -56,5 +56,9 @@ function adicionar() {
 }
 
 function limpar() {
+    let listProducts = document.getElementById("lista-produtos");
+    listProducts.textContent = "";
+    let total = document.getElementById("valor-total");
+    total.textContent = "R$0";
     
 }
