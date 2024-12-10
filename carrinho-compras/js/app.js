@@ -20,6 +20,7 @@ function add() {
 function createHTMLForNewProduct(prod, qtProd) {
     let productName = getProductName(prod);
     let productPrice = getProductPrice(prod);
+    let subTotal = productPrice * parseInt(qtProd);
 
     let newSpanQt = document.createElement("span");
     newSpanQt.className = "texto-azul";
@@ -29,7 +30,7 @@ function createHTMLForNewProduct(prod, qtProd) {
 
     let newSpanPrice = document.createElement("span");
     newSpanPrice.className = "texto-azul";
-    newSpanPrice.textContent = `${productPrice}`;
+    newSpanPrice.textContent = `R$${subTotal}`;
 
     let newSection = document.createElement("section");
     newSection.className = "carrinho__produtos__produto"
@@ -45,7 +46,7 @@ function updateTotalPrice(prod, qtProd) {
     let prodPrice = getProductPrice(prod);
     let total = document.getElementById("valor-total");
     let totalNumber = parseInt(total.textContent.replace("R$",""));
-    totalNumber += (parseInt(prodPrice.replace("R$",""))*parseInt(qtProd));
+    totalNumber += (prodPrice*parseInt(qtProd));
     total.textContent = `R$${totalNumber}`;
 }
 
@@ -56,8 +57,8 @@ function getProductName(prod) {
 }
 
 function getProductPrice(prod) {
-    let productParts = prod.split(" - ");
-    let prodPrice = productParts[1];
+    let productParts = prod.split("R$");
+    let prodPrice = parseInt(productParts[1]);
     return prodPrice;
 }
 
