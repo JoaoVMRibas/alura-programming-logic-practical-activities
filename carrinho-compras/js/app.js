@@ -1,64 +1,69 @@
-function adicionar() {
-    //Product that should be added to the shopping cart
+function add() {
     let product = document.getElementById("produto").value;
-    let productParts = product.split(" - ");
-    let productName = productParts[0];
-    let productPrice = productParts[1];
     let qtProduct = document.getElementById("quantidade").value;
 
-    //Create a new HTML span for quantity
+    let newHTML = createHTMLForNewProduct(product,qtProduct);
+
+    let listProducts = document.getElementById("lista-produtos");
+    let listSections = listProducts.querySelector(".carrinho__produtos__produto");
+
+    if(listSections != null){
+        let lastSection = listSections[listSections.length - 1];
+        listProducts.insertBefore(newHTML,lastSection);
+        updateTotalPrice(product,qtProduct);
+    }else {
+        listProducts.appendChild(newHTML);
+        updateTotalPrice(product,qtProduct);
+    }
+}
+
+function createHTMLForNewProduct(prod, qtProd) {
+    let productName = getProductName(prod);
+    let productPrice = getProductPrice(prod);
+
     let newSpanQt = document.createElement("span");
     newSpanQt.className = "texto-azul";
-    newSpanQt.textContent = `${qtProduct}x`;
+    newSpanQt.textContent = `${qtProd}x`;
 
-    //Create product name text
     let productText = document.createTextNode(` ${productName} `);    
 
-    //Create a new HTML span for price
     let newSpanPrice = document.createElement("span");
     newSpanPrice.className = "texto-azul";
     newSpanPrice.textContent = `${productPrice}`;
 
-    //Create new HTML section
     let newSection = document.createElement("section");
     newSection.className = "carrinho__produtos__produto"
-    //Assigns the span as a child of the section
+    
     newSection.appendChild(newSpanQt);
     newSection.appendChild(productText);
     newSection.appendChild(newSpanPrice);
 
-    //Find Shopping cart Product List
-    let listProducts = document.getElementById("lista-produtos");
-
-    //Find the last HTML section
-    let listSections = listProducts.querySelector(".carrinho__produtos__produto");
-
-    //Tests if there are sections
-    if(listSections != null){
-        let lastSection = listSections[listSections.length - 1];
-
-        //Inserts new section after the last section found
-        listProducts.insertBefore(newSection,lastSection);
-
-        //Calculate total price
-        let total = document.getElementById("valor-total");
-        let totalNumber = parseInt(total.textContent.replace("R$",""));
-        totalNumber += (parseInt(productPrice.replace("R$",""))*parseInt(qtProduct));
-        total.textContent = `R$${totalNumber}`;
-    }else {
-        listProducts.appendChild(newSection);
-
-        let total = document.getElementById("valor-total");
-        let totalNumber = parseInt(total.textContent.replace("R$",""));
-        totalNumber += (parseInt(productPrice.replace("R$",""))*parseInt(qtProduct));
-        total.textContent = `R$${totalNumber}`;
-    }
+    return newSection;
 }
 
-function limpar() {
+function updateTotalPrice(prod, qtProd) {
+    let prodPrice = getProductPrice(prod);
+    let total = document.getElementById("valor-total");
+    let totalNumber = parseInt(total.textContent.replace("R$",""));
+    totalNumber += (parseInt(prodPrice.replace("R$",""))*parseInt(qtProd));
+    total.textContent = `R$${totalNumber}`;
+}
+
+function getProductName(prod) {
+    let productParts = prod.split(" - ");
+    let prodName = productParts[0];
+    return prodName;
+}
+
+function getProductPrice(prod) {
+    let productParts = prod.split(" - ");
+    let prodPrice = productParts[1];
+    return prodPrice;
+}
+
+function clean() {
     let listProducts = document.getElementById("lista-produtos");
     listProducts.textContent = "";
     let total = document.getElementById("valor-total");
     total.textContent = "R$0";
-    
 }
