@@ -6,26 +6,34 @@ function add() {
     let friend = document.getElementById("nome-amigo").value;
     let includedFriend = document.getElementById("lista-amigos");
     
-    if(includedFriend.textContent == ""){
-        includedFriend.textContent = friend;
-    }else {
-        includedFriend.textContent += `, ${friend}`;
+    if(listFriend.includes(friend) || friend == ""){
+        alert("Person already added or field not filled.");
+    }else{
+        if(includedFriend.textContent == ""){
+            includedFriend.textContent = friend;
+        }else {
+            includedFriend.textContent += `, ${friend}`;
+        }
+        listFriend.push(friend);
     }
-    listFriend.push(friend);
     document.getElementById("nome-amigo").value = "";
 }
 
 function draw() {
     let result = document.getElementById("lista-sorteio");
-    
-    for(let i = 0; i< listFriend.length; i++){
-        randomNumbers[i] = getRandomNumber(0,listFriend.length, i, randomNumbers);
-        randomSelectedFriends[i] = listFriend[randomNumbers[i]];
-        
-        if(result.textContent == ""){
-            result.innerHTML =`${listFriend[i]} -> ${randomSelectedFriends[i]}`;
-        }else{
-            result.innerHTML += `<br>${listFriend[i]} -> ${randomSelectedFriends[i]}`;
+
+    if(listFriend.length <= 1){
+        alert("Insufficient number of people for the draw.");
+    }else{
+        for(let i = 0; i< listFriend.length; i++){
+            randomNumbers[i] = getRandomNumber(0,listFriend.length, i, randomNumbers);
+            randomSelectedFriends[i] = listFriend[randomNumbers[i]];
+            
+            if(result.textContent == ""){
+                result.innerHTML =`${listFriend[i]} -> ${randomSelectedFriends[i]}`;
+            }else{
+                result.innerHTML += `<br>${listFriend[i]} -> ${randomSelectedFriends[i]}`;
+            }
         }
     }
 }
